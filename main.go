@@ -23,13 +23,11 @@ func main() {
 
 	for i := 0; i < ARGS.Tries; i++ {
 		log.Printf("#%d request\n", i+1)
-		if IsOK(ARGS.Endpoint) {
-			log.Printf("REQUEST SUCCEED")
-			os.Exit(0)
-		}
+		go MakeRequest()
 
 		time.Sleep(time.Duration(ARGS.Delay) * time.Second)
 	}
+	time.Sleep(time.Duration(ARGS.Delay) * time.Second)
 
 	log.Printf("REQUESTS FAILED ")
 	os.Exit(1)
@@ -48,4 +46,11 @@ func AntiLock() {
 	time.Sleep(time.Duration(ARGS.Delay*ARGS.Tries) * time.Second)
 	log.Printf("REQUESTS LOCKED")
 	os.Exit(1)
+}
+
+func MakeRequest() {
+	if IsOK(ARGS.Endpoint) {
+		log.Printf("REQUEST SUCCEED")
+		os.Exit(0)
+	}
 }
