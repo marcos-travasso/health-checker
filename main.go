@@ -22,7 +22,7 @@ func main() {
 	go AntiLock()
 
 	for i := 0; i < ARGS.Tries; i++ {
-		log.Printf("#%d request\n", i+1)
+		log.Printf("request #%d\n", i+1)
 		go MakeRequest()
 
 		time.Sleep(time.Duration(ARGS.Delay) * time.Second)
